@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		1CD76825CDE46635D83C6A71 /* Pods_codingTask.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84DC97BFE7F205FF7E157F52 /* Pods_codingTask.framework */; };
 		7592DC5220CE8FA900744C76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7592DC5120CE8FA900744C76 /* AppDelegate.swift */; };
-		7592DC5420CE8FA900744C76 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7592DC5320CE8FA900744C76 /* ViewController.swift */; };
+		7592DC5420CE8FA900744C76 /* GMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7592DC5320CE8FA900744C76 /* GMapViewController.swift */; };
 		7592DC5720CE8FA900744C76 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7592DC5520CE8FA900744C76 /* Main.storyboard */; };
 		7592DC5920CE8FAB00744C76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7592DC5820CE8FAB00744C76 /* Assets.xcassets */; };
 		7592DC5C20CE8FAB00744C76 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7592DC5A20CE8FAB00744C76 /* LaunchScreen.storyboard */; };
@@ -20,7 +20,7 @@
 		3BD989C81E952864CBEC9E72 /* Pods-codingTask.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-codingTask.release.xcconfig"; path = "Pods/Target Support Files/Pods-codingTask/Pods-codingTask.release.xcconfig"; sourceTree = "<group>"; };
 		7592DC4E20CE8FA800744C76 /* codingTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = codingTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7592DC5120CE8FA900744C76 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7592DC5320CE8FA900744C76 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		7592DC5320CE8FA900744C76 /* GMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GMapViewController.swift; sourceTree = "<group>"; };
 		7592DC5620CE8FA900744C76 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7592DC5820CE8FAB00744C76 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7592DC5B20CE8FAB00744C76 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -64,7 +64,7 @@
 			isa = PBXGroup;
 			children = (
 				7592DC5120CE8FA900744C76 /* AppDelegate.swift */,
-				7592DC5320CE8FA900744C76 /* ViewController.swift */,
+				7592DC5320CE8FA900744C76 /* GMapViewController.swift */,
 				7592DC5520CE8FA900744C76 /* Main.storyboard */,
 				7592DC5820CE8FAB00744C76 /* Assets.xcassets */,
 				7592DC5A20CE8FAB00744C76 /* LaunchScreen.storyboard */,
@@ -206,7 +206,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7592DC6420CEC3E200744C76 /* LocationDataModel.swift in Sources */,
-				7592DC5420CE8FA900744C76 /* ViewController.swift in Sources */,
+				7592DC5420CE8FA900744C76 /* GMapViewController.swift in Sources */,
 				7592DC5220CE8FA900744C76 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
