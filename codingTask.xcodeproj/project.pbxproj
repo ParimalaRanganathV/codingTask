@@ -7,14 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1CD76825CDE46635D83C6A71 /* Pods_codingTask.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84DC97BFE7F205FF7E157F52 /* Pods_codingTask.framework */; };
 		7592DC5220CE8FA900744C76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7592DC5120CE8FA900744C76 /* AppDelegate.swift */; };
 		7592DC5420CE8FA900744C76 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7592DC5320CE8FA900744C76 /* ViewController.swift */; };
 		7592DC5720CE8FA900744C76 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7592DC5520CE8FA900744C76 /* Main.storyboard */; };
 		7592DC5920CE8FAB00744C76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7592DC5820CE8FAB00744C76 /* Assets.xcassets */; };
 		7592DC5C20CE8FAB00744C76 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7592DC5A20CE8FAB00744C76 /* LaunchScreen.storyboard */; };
+		7592DC6420CEC3E200744C76 /* LocationDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7592DC6320CEC3E200744C76 /* LocationDataModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3BD989C81E952864CBEC9E72 /* Pods-codingTask.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-codingTask.release.xcconfig"; path = "Pods/Target Support Files/Pods-codingTask/Pods-codingTask.release.xcconfig"; sourceTree = "<group>"; };
 		7592DC4E20CE8FA800744C76 /* codingTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = codingTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7592DC5120CE8FA900744C76 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7592DC5320CE8FA900744C76 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +25,9 @@
 		7592DC5820CE8FAB00744C76 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7592DC5B20CE8FAB00744C76 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7592DC5D20CE8FAB00744C76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7592DC6320CEC3E200744C76 /* LocationDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDataModel.swift; sourceTree = "<group>"; };
+		84DC97BFE7F205FF7E157F52 /* Pods_codingTask.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_codingTask.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C3BAAA19847B54C38E690DF /* Pods-codingTask.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-codingTask.debug.xcconfig"; path = "Pods/Target Support Files/Pods-codingTask/Pods-codingTask.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CD76825CDE46635D83C6A71 /* Pods_codingTask.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +47,8 @@
 			children = (
 				7592DC5020CE8FA800744C76 /* codingTask */,
 				7592DC4F20CE8FA800744C76 /* Products */,
+				7D800B3555207A4DA91B6007 /* Pods */,
+				F6A1EAE8E69ADA2722B997BD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,8 +69,26 @@
 				7592DC5820CE8FAB00744C76 /* Assets.xcassets */,
 				7592DC5A20CE8FAB00744C76 /* LaunchScreen.storyboard */,
 				7592DC5D20CE8FAB00744C76 /* Info.plist */,
+				7592DC6320CEC3E200744C76 /* LocationDataModel.swift */,
 			);
 			path = codingTask;
+			sourceTree = "<group>";
+		};
+		7D800B3555207A4DA91B6007 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8C3BAAA19847B54C38E690DF /* Pods-codingTask.debug.xcconfig */,
+				3BD989C81E952864CBEC9E72 /* Pods-codingTask.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		F6A1EAE8E69ADA2722B997BD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				84DC97BFE7F205FF7E157F52 /* Pods_codingTask.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +98,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7592DC6020CE8FAB00744C76 /* Build configuration list for PBXNativeTarget "codingTask" */;
 			buildPhases = (
+				5828EC5EB45383E624F28707 /* [CP] Check Pods Manifest.lock */,
 				7592DC4A20CE8FA800744C76 /* Sources */,
 				7592DC4B20CE8FA800744C76 /* Frameworks */,
 				7592DC4C20CE8FA800744C76 /* Resources */,
+				B79F47D85DC067A2BCA4F2C9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -130,11 +159,53 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5828EC5EB45383E624F28707 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-codingTask-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B79F47D85DC067A2BCA4F2C9 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-codingTask/Pods-codingTask-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-codingTask/Pods-codingTask-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		7592DC4A20CE8FA800744C76 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7592DC6420CEC3E200744C76 /* LocationDataModel.swift in Sources */,
 				7592DC5420CE8FA900744C76 /* ViewController.swift in Sources */,
 				7592DC5220CE8FA900744C76 /* AppDelegate.swift in Sources */,
 			);
@@ -278,6 +349,7 @@
 		};
 		7592DC6120CE8FAB00744C76 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8C3BAAA19847B54C38E690DF /* Pods-codingTask.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -295,6 +367,7 @@
 		};
 		7592DC6220CE8FAB00744C76 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3BD989C81E952864CBEC9E72 /* Pods-codingTask.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
