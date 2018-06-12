@@ -5,7 +5,7 @@
 - and perform Pods Installation:$ pod install
 - finally,open codingTask.xcworkspace
 
-*or mannualy third party frameworks - GoogleMap, Alamofire and SwiftyJSON need to be imported to the project(not recommended) 
+* or mannualy third party frameworks - GoogleMap, Alamofire and SwiftyJSON need to be imported to the project(not recommended) 
 
 * Run the code
 
