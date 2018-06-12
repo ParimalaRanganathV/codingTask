@@ -12,4 +12,4 @@
  * internet access should be provided
 
 ### * during Execution, 
-- if asked for location permission please do 'grant permission i.e. Allow Location'
+- if asked for location permission please do `grant permission i.e. Allow Location`
