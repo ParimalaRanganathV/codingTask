@@ -17,12 +17,28 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PZo-3U-OsP" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="PZo-3U-OsP" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="A1J-2h-86m"/>
+                            <constraint firstItem="PZo-3U-OsP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="C16-xk-zdR"/>
+                            <constraint firstItem="PZo-3U-OsP" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Ywt-tT-tuP"/>
+                            <constraint firstItem="PZo-3U-OsP" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="iW2-XN-mgE"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="PZo-3U-OsP" id="CJd-9n-fU7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="23.199999999999999" y="29.23538230884558"/>
         </scene>
     </scenes>
 </document>

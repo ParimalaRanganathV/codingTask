@@ -64,14 +64,46 @@
 			isa = PBXGroup;
 			children = (
 				7592DC5120CE8FA900744C76 /* AppDelegate.swift */,
-				7592DC5320CE8FA900744C76 /* GMapViewController.swift */,
-				7592DC5520CE8FA900744C76 /* Main.storyboard */,
-				7592DC5820CE8FAB00744C76 /* Assets.xcassets */,
-				7592DC5A20CE8FAB00744C76 /* LaunchScreen.storyboard */,
+				7592DC6620CF852B00744C76 /* Controller */,
+				7592DC6520CF851A00744C76 /* Model */,
+				7592DC6720CF853800744C76 /* View */,
+				7592DC6820CF854400744C76 /* SupportingFiles */,
 				7592DC5D20CE8FAB00744C76 /* Info.plist */,
-				7592DC6320CEC3E200744C76 /* LocationDataModel.swift */,
 			);
 			path = codingTask;
+			sourceTree = "<group>";
+		};
+		7592DC6520CF851A00744C76 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7592DC6320CEC3E200744C76 /* LocationDataModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		7592DC6620CF852B00744C76 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				7592DC5320CE8FA900744C76 /* GMapViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		7592DC6720CF853800744C76 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7592DC5520CE8FA900744C76 /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7592DC6820CF854400744C76 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				7592DC5820CE8FAB00744C76 /* Assets.xcassets */,
+				7592DC5A20CE8FAB00744C76 /* LaunchScreen.storyboard */,
+			);
+			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
 		7D800B3555207A4DA91B6007 /* Pods */ = {
