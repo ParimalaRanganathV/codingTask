@@ -7,3 +7,6 @@ and perform Pods Installation(pod install)
 open codingTask.xcworkspace
 
 Run the code
+
+during Execution, 
+when asked for location permission please do grant permission
