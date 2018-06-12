@@ -11,8 +11,7 @@ import CoreLocation
 
 
 class LocationDataModel  {
-    var title: String = ""
-    var snippet: String = ""
-    var locCoords = CLLocation()
+    var address: String = ""
+    var locCoords: CLLocation?
     
 }
