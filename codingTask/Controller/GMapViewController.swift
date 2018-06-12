@@ -8,7 +8,7 @@
 
 import UIKit
 import GoogleMaps
-import GooglePlaces
+
 
 class GMapViewController: UIViewController {
     
@@ -22,17 +22,22 @@ class GMapViewController: UIViewController {
  
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
         locationManager.distanceFilter = 50
         locationManager.startUpdatingLocation()
+        
         locationManager.delegate = self
         mapView.delegate = self
+        
+        mapView.isHidden = true
     }
     
     
     func updateMapUI(zoom: Float) {
+        mapView.isHidden = false
         let latitude = currentLocation.locCoords?.coordinate.latitude
         let longitude = currentLocation.locCoords?.coordinate.longitude
         let camera = GMSCameraPosition.camera(withLatitude: latitude!, longitude: longitude!, zoom: zoom)
@@ -49,9 +54,9 @@ class GMapViewController: UIViewController {
         marker.map = mapView
     }
     
-    //Reverse geocode to fetch the address of current location
+    
+    //Reverse geocode to fetch the address of  location
     func getAddress(coords: CLLocation, completion: ((String) -> Void )?) {
-        //var isAddrGenerated:Bool = false
         var addressStr : String = ""
         CLGeocoder().reverseGeocodeLocation(coords) {
             (placemark, error) in
@@ -94,32 +99,51 @@ class GMapViewController: UIViewController {
     }
     
     func generateUI() {
+        
         updateMapUI(zoom:6.0)
         addMarker(forLocation: currentLocation, color: UIColor(displayP3Red: 0.33, green: 1.00, blue: 0.10, alpha: 1.0))
-        setDesignatedLocations()
+        setDesignatedLocationMarkers()
+        drawPolyLines()
 
     }
     
-    func setDesignatedLocations() {
+    func setDesignatedLocationMarkers() {
         
-        let chAirCoord = CLLocation(latitude: 12.9814, longitude: 80.1641)
-            cAirLocation.locCoords = chAirCoord
+        let chAirCoord = CLLocation(latitude: 12.9822222222, longitude: 80.1636111111)
+        cAirLocation.locCoords = chAirCoord
         getAddress(coords: chAirCoord) { (address:String) -> () in
             self.cAirLocation.address = address
             self.addMarker(forLocation: self.cAirLocation, color: .blue)
         }
         
-        let muAirCoord = CLLocation(latitude: 19.097403, longitude: 72.874245)
-            mAirLocation.locCoords = muAirCoord
+        let muAirCoord = CLLocation(latitude: 19.0886111111, longitude: 72.8683333333)
+        mAirLocation.locCoords = muAirCoord
         getAddress(coords: muAirCoord) { (address:String) -> () in
             self.mAirLocation.address = address
             self.addMarker(forLocation: self.mAirLocation, color: .red)
         }
         
+    }
+    
+    func drawPolyLines() {
+        drawPolyLine(source:currentLocation, destination:mAirLocation, color:UIColor.blue)
+        drawPolyLine(source:currentLocation, destination:cAirLocation, color:UIColor.darkGray)
         
     }
     
+    func drawPolyLine(source: LocationDataModel, destination: LocationDataModel, color: UIColor) {
+        let path = GMSMutablePath()
+        path.add(CLLocationCoordinate2D(latitude: (source.locCoords?.coordinate.latitude)! , longitude: (source.locCoords?.coordinate.longitude)!))
+        path.add(CLLocationCoordinate2D(latitude: (destination.locCoords?.coordinate.latitude)! , longitude: (destination.locCoords?.coordinate.longitude)!))
+        let polyline = GMSPolyline(path: path)
+        polyline.strokeWidth = 3
+        polyline.strokeColor = color
+        polyline.geodesic = true
+        polyline.map = mapView
+    }
+    
 }
+
 
 
 // MARK: Location manager delegate methods - capturing current location
@@ -184,19 +208,18 @@ extension GMapViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
         let view = UIView(frame: CGRect.init(x: 0, y: 0, width: 200, height: 70))
         view.backgroundColor = UIColor.white
-        view.layer.cornerRadius = 6
+        view.layer.cornerRadius = 10
         
-        let lbl1 = UILabel(frame: CGRect.init(x: 8, y: 8, width: view.frame.size.width - 16, height: 60))
-        lbl1.text =  marker.snippet!
-        lbl1.font = UIFont(name: "HelveticaNeue", size: 15)
-        lbl1.numberOfLines = 3
-        view.addSubview(lbl1)
+        let annotationLbl = UILabel(frame: CGRect.init(x: 8, y: 8, width: view.frame.size.width - 16, height: 60))
+        annotationLbl.text =  marker.snippet!
+        annotationLbl.font = UIFont(name: "HelveticaNeue", size: 15)
+        annotationLbl.numberOfLines = 3
+        view.addSubview(annotationLbl)
         
         
         return view
     }
 
-    
     
     
     
