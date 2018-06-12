@@ -8,6 +8,8 @@
 
 import UIKit
 import GoogleMaps
+import Alamofire
+import SwiftyJSON
 
 
 class GMapViewController: UIViewController {
@@ -18,8 +20,9 @@ class GMapViewController: UIViewController {
     var currentLocation = LocationDataModel()
     var cAirLocation    = LocationDataModel()
     var mAirLocation    = LocationDataModel()
-   
- 
+    var gmapKey:String  = "AIzaSyBmTMDB1NY0nSxnulTk4bltJHljCFtKMJo"
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -68,6 +71,13 @@ class GMapViewController: UIViewController {
                 if place.count > 0 {
                     let place = placemark![0]
                     
+                    if place.name  != nil {
+                        addressStr = addressStr + place.name! + ", "
+                    }
+                    if place.subLocality != nil {
+                        addressStr = addressStr + place.subLocality! + ", "
+                    }
+                    
                     if place.thoroughfare != nil {
                         addressStr = addressStr + place.thoroughfare! + ", "
                     }
@@ -94,7 +104,7 @@ class GMapViewController: UIViewController {
             }
         }
         
-       
+        
         
     }
     
@@ -104,19 +114,19 @@ class GMapViewController: UIViewController {
         addMarker(forLocation: currentLocation, color: UIColor(displayP3Red: 0.33, green: 1.00, blue: 0.10, alpha: 1.0))
         setDesignatedLocationMarkers()
         drawPolyLines()
-
+        
     }
     
     func setDesignatedLocationMarkers() {
         
-        let chAirCoord = CLLocation(latitude: 12.9822222222, longitude: 80.1636111111)
+        let chAirCoord = CLLocation(latitude: 12.990797, longitude: 80.165696)
         cAirLocation.locCoords = chAirCoord
         getAddress(coords: chAirCoord) { (address:String) -> () in
             self.cAirLocation.address = address
             self.addMarker(forLocation: self.cAirLocation, color: .blue)
         }
         
-        let muAirCoord = CLLocation(latitude: 19.0886111111, longitude: 72.8683333333)
+        let muAirCoord = CLLocation(latitude: 19.089613, longitude: 72.865607)
         mAirLocation.locCoords = muAirCoord
         getAddress(coords: muAirCoord) { (address:String) -> () in
             self.mAirLocation.address = address
@@ -131,15 +141,50 @@ class GMapViewController: UIViewController {
         
     }
     
+    func drawPath (origin: String, destination: String, color: UIColor) {
+        
+        let prefTravel:String = "walking"
+        let url = URL(string: "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=\(prefTravel)&key=" + gmapKey)
+        
+        /* Fire the request */
+        Alamofire.request(url!).responseJSON{(responseData) -> Void in
+            if((responseData.result.value) != nil) {
+                /* read the result value */
+                let swiftyJsonVar = JSON(responseData.result.value!)
+                /* only get the routes object */
+                if let resData = swiftyJsonVar["routes"].arrayObject {
+                    let routes = resData as! [[String: AnyObject]]
+                    /* loop the routes */
+                    if routes.count > 0 {
+                        for rts in routes {
+                            /* get the point */
+                            let overViewPolyLine = rts["overview_polyline"]?["points"]
+                            let path = GMSMutablePath(fromEncodedPath: overViewPolyLine as! String)
+                            /* set up poly line */
+                            let polyline = GMSPolyline.init(path: path)
+                            polyline.strokeWidth = 2
+                            polyline.strokeColor = color
+                            polyline.map = self.mapView
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     func drawPolyLine(source: LocationDataModel, destination: LocationDataModel, color: UIColor) {
-        let path = GMSMutablePath()
-        path.add(CLLocationCoordinate2D(latitude: (source.locCoords?.coordinate.latitude)! , longitude: (source.locCoords?.coordinate.longitude)!))
-        path.add(CLLocationCoordinate2D(latitude: (destination.locCoords?.coordinate.latitude)! , longitude: (destination.locCoords?.coordinate.longitude)!))
-        let polyline = GMSPolyline(path: path)
-        polyline.strokeWidth = 3
-        polyline.strokeColor = color
-        polyline.geodesic = true
-        polyline.map = mapView
+        //        let path = GMSMutablePath()
+        //        path.add(CLLocationCoordinate2D(latitude: (source.locCoords?.coordinate.latitude)! , longitude: (source.locCoords?.coordinate.longitude)!))
+        //        path.add(CLLocationCoordinate2D(latitude: (destination.locCoords?.coordinate.latitude)! , longitude: (destination.locCoords?.coordinate.longitude)!))
+        //        let polyline = GMSPolyline(path: path)
+        //        polyline.strokeWidth = 3
+        //        polyline.strokeColor = color
+        //        polyline.geodesic = true
+        //        polyline.map = mapView
+        
+        let originCoords:String = "\((source.locCoords?.coordinate.latitude)!),\((source.locCoords?.coordinate.longitude)!)"
+        let destCoords:String = "\((destination.locCoords?.coordinate.latitude)!),\((destination.locCoords?.coordinate.longitude)!)"
+        drawPath(origin: originCoords, destination: destCoords,color: color)
     }
     
 }
@@ -157,8 +202,8 @@ extension GMapViewController: CLLocationManagerDelegate {
         if uLocation.horizontalAccuracy > 0 {
             locationManager.stopUpdatingLocation()
             currentLocation.locCoords = location
-           
-            }
+            
+        }
         
         getAddress(coords: currentLocation.locCoords!) {
             (address:String) -> () in
@@ -206,51 +251,19 @@ extension GMapViewController: GMSMapViewDelegate {
         print("didLongPressInfoWindowOf")
     }
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
-        let view = UIView(frame: CGRect.init(x: 0, y: 0, width: 200, height: 70))
+        let view = UIView(frame: CGRect.init(x: 0, y: 0, width: 250, height: 81))
         view.backgroundColor = UIColor.white
         view.layer.cornerRadius = 10
         
-        let annotationLbl = UILabel(frame: CGRect.init(x: 8, y: 8, width: view.frame.size.width - 16, height: 60))
+        let annotationLbl = UILabel(frame: CGRect.init(x: 8, y: 8, width: view.frame.size.width - 16, height: 75))
         annotationLbl.text =  marker.snippet!
         annotationLbl.font = UIFont(name: "HelveticaNeue", size: 15)
-        annotationLbl.numberOfLines = 3
+        annotationLbl.numberOfLines = 5
         view.addSubview(annotationLbl)
         
         
         return view
     }
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
 }
 
