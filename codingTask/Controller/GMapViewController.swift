@@ -39,6 +39,17 @@ class GMapViewController: UIViewController {
     }
     
     
+    
+    // MARK:  creating Map  and adding the markers
+    func generateUI() {
+        
+        updateMapUI(zoom:6.0)
+        addMarker(forLocation: currentLocation, color: UIColor(red:0.07, green:0.29, blue:0.07, alpha:1.0))
+        setDesignatedLocationMarkers()
+        drawPolyLines()
+        
+    }
+    
     func updateMapUI(zoom: Float) {
         mapView.isHidden = false
         let latitude = currentLocation.locCoords?.coordinate.latitude
@@ -57,8 +68,70 @@ class GMapViewController: UIViewController {
         marker.map = mapView
     }
     
+    func setDesignatedLocationMarkers() {
+        
+        let chAirCoord = CLLocation(latitude: 12.990797, longitude: 80.165696)
+        cAirLocation.locCoords = chAirCoord
+        getAddress(coords: chAirCoord) { (address:String) -> () in
+            self.cAirLocation.address = address
+            self.addMarker(forLocation: self.cAirLocation, color:UIColor(red:0.00, green:0.00, blue:1.00, alpha:1.0))
+        }
+        
+        let muAirCoord = CLLocation(latitude: 19.089613, longitude: 72.865607)
+        mAirLocation.locCoords = muAirCoord
+        getAddress(coords: muAirCoord) { (address:String) -> () in
+            self.mAirLocation.address = address
+            self.addMarker(forLocation: self.mAirLocation, color: UIColor(red:1.00, green:0.00, blue:0.00, alpha:1.0))
+        }
+        
+    }
     
-    //Reverse geocode to fetch the address of  location
+    
+    //MARK: Polyline implementation for 2 paths
+    func drawPolyLines() {
+        drawPolyLine(source:currentLocation, destination:mAirLocation, color:UIColor(red:0.89, green:0.45, blue:0.27, alpha:1.0))
+        drawPolyLine(source:currentLocation, destination:cAirLocation, color:UIColor(red:0.45, green:0.40, blue:0.56, alpha:1.0))
+        
+    }
+    
+    func drawPolyLine(source: LocationDataModel, destination: LocationDataModel, color: UIColor) {
+        
+        let originCoords:String = "\((source.locCoords?.coordinate.latitude)!),\((source.locCoords?.coordinate.longitude)!)"
+        let destCoords:String = "\((destination.locCoords?.coordinate.latitude)!),\((destination.locCoords?.coordinate.longitude)!)"
+        drawPath(origin: originCoords, destination: destCoords,color: color)
+    }
+    
+    func drawPath (origin: String, destination: String, color: UIColor) {
+        
+        let prefTravel:String = "walking"
+        let url = URL(string: "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=\(prefTravel)&key=" + gmapKey)
+        
+        Alamofire.request(url!).responseJSON{(responseData) -> Void in
+            if((responseData.result.value) != nil) {
+               
+                let swiftyJsonVar = JSON(responseData.result.value!)
+                
+                if let resData = swiftyJsonVar["routes"].arrayObject {
+                    let routes = resData as! [[String: AnyObject]]
+                    
+                    if routes.count > 0 {
+                        for rts in routes {
+                           
+                            let overViewPolyLine = rts["overview_polyline"]?["points"]
+                            let path = GMSMutablePath(fromEncodedPath: overViewPolyLine as! String)
+                            
+                            let polyline = GMSPolyline.init(path: path)
+                            polyline.strokeWidth = 4
+                            polyline.strokeColor = color
+                            polyline.map = self.mapView
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    // MARK: Reverse geocode to fetch the address of  location
     func getAddress(coords: CLLocation, completion: ((String) -> Void )?) {
         var addressStr : String = ""
         CLGeocoder().reverseGeocodeLocation(coords) {
@@ -97,7 +170,7 @@ class GMapViewController: UIViewController {
                         addressStr = addressStr + place.country!
                     }
                     
-                    print(addressStr)
+                    //print(addressStr)
                     completion?(addressStr)
                 }
                 
@@ -108,84 +181,7 @@ class GMapViewController: UIViewController {
         
     }
     
-    func generateUI() {
-        
-        updateMapUI(zoom:6.0)
-        addMarker(forLocation: currentLocation, color: UIColor(displayP3Red: 0.33, green: 1.00, blue: 0.10, alpha: 1.0))
-        setDesignatedLocationMarkers()
-        drawPolyLines()
-        
-    }
     
-    func setDesignatedLocationMarkers() {
-        
-        let chAirCoord = CLLocation(latitude: 12.990797, longitude: 80.165696)
-        cAirLocation.locCoords = chAirCoord
-        getAddress(coords: chAirCoord) { (address:String) -> () in
-            self.cAirLocation.address = address
-            self.addMarker(forLocation: self.cAirLocation, color: .blue)
-        }
-        
-        let muAirCoord = CLLocation(latitude: 19.089613, longitude: 72.865607)
-        mAirLocation.locCoords = muAirCoord
-        getAddress(coords: muAirCoord) { (address:String) -> () in
-            self.mAirLocation.address = address
-            self.addMarker(forLocation: self.mAirLocation, color: .red)
-        }
-        
-    }
-    
-    func drawPolyLines() {
-        drawPolyLine(source:currentLocation, destination:mAirLocation, color:UIColor.blue)
-        drawPolyLine(source:currentLocation, destination:cAirLocation, color:UIColor.darkGray)
-        
-    }
-    
-    func drawPath (origin: String, destination: String, color: UIColor) {
-        
-        let prefTravel:String = "walking"
-        let url = URL(string: "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=\(prefTravel)&key=" + gmapKey)
-        
-        /* Fire the request */
-        Alamofire.request(url!).responseJSON{(responseData) -> Void in
-            if((responseData.result.value) != nil) {
-                /* read the result value */
-                let swiftyJsonVar = JSON(responseData.result.value!)
-                /* only get the routes object */
-                if let resData = swiftyJsonVar["routes"].arrayObject {
-                    let routes = resData as! [[String: AnyObject]]
-                    /* loop the routes */
-                    if routes.count > 0 {
-                        for rts in routes {
-                            /* get the point */
-                            let overViewPolyLine = rts["overview_polyline"]?["points"]
-                            let path = GMSMutablePath(fromEncodedPath: overViewPolyLine as! String)
-                            /* set up poly line */
-                            let polyline = GMSPolyline.init(path: path)
-                            polyline.strokeWidth = 2
-                            polyline.strokeColor = color
-                            polyline.map = self.mapView
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    func drawPolyLine(source: LocationDataModel, destination: LocationDataModel, color: UIColor) {
-        //        let path = GMSMutablePath()
-        //        path.add(CLLocationCoordinate2D(latitude: (source.locCoords?.coordinate.latitude)! , longitude: (source.locCoords?.coordinate.longitude)!))
-        //        path.add(CLLocationCoordinate2D(latitude: (destination.locCoords?.coordinate.latitude)! , longitude: (destination.locCoords?.coordinate.longitude)!))
-        //        let polyline = GMSPolyline(path: path)
-        //        polyline.strokeWidth = 3
-        //        polyline.strokeColor = color
-        //        polyline.geodesic = true
-        //        polyline.map = mapView
-        
-        let originCoords:String = "\((source.locCoords?.coordinate.latitude)!),\((source.locCoords?.coordinate.longitude)!)"
-        let destCoords:String = "\((destination.locCoords?.coordinate.latitude)!),\((destination.locCoords?.coordinate.longitude)!)"
-        drawPath(origin: originCoords, destination: destCoords,color: color)
-    }
     
 }
 
